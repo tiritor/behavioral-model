@@ -43,9 +43,10 @@ WORKDIR /behavioral-model/
 RUN apt-get update -qq && \
     apt-get install -qq --no-install-recommends $BM_DEPS $BM_RUNTIME_DEPS && \
     ./autogen.sh && \
-    if [ "$GCOV" = "" ]; then ./configure --with-pdfixed --with-pi --with-thrift --with-stress-tests --disable-logging-macros; fi && \
-    # if [ "$GCOV" = "" ]; then ./configure --with-pdfixed --with-pi --with thrift --with-stress-tests --enable-debugger --enable-Werror; fi && \
-    if [ "$GCOV" != "" ]; then ./configure --with-pdfixed --with-pi --with-thrift --with-stress-tests  --disable-logging-macros --enable-coverage; fi && \
+    # if [ "$GCOV" = "" ]; then ./configure --with-pdfixed --with-pi --with-thrift --with-stress-tests --enable-Werror; fi && \
+    if [ "$GCOV" = "" ]; then ./configure --with-pdfixed --with-pi --with-thrift --with-stress-tests; fi && \
+    # if [ "$GCOV" != "" ]; then ./configure --with-pdfixed --with-pi --with-thrift --with-stress-tests  --enable-coverage --enable-Werror; fi && \
+    if [ "$GCOV" != "" ]; then ./configure --with-pdfixed --with-pi --with-thrift --with-stress-tests  --enable-coverage; fi && \
     # if [ "$GCOV" != "" ]; then ./configure --with-pdfixed --with-pi --with-thrift --with-stress-tests --enable-debugger --enable-coverage --enable-Werror; fi && \
     make -j$(nproc) && \
     make install-strip && \
